@@ -36,6 +36,7 @@ type Scanner struct {
 
 // Contructor del Scanner
 func NewScanner(input string) *Scanner {
+	// fmt.Print([]rune(strings.TrimSpace(input)))
 	return &Scanner{input: []rune(strings.TrimSpace(input))}
 }
 
@@ -47,7 +48,7 @@ func (s *Scanner) peek() rune {
 	if s.pos >= len(s.input) {
 		return 0
 	}
-	fmt.Println(s.pos, s.input[s.pos])
+	// fmt.Println(s.pos, s.input[s.pos])
 	return s.input[s.pos]
 }
 
@@ -58,6 +59,7 @@ que se encuentra el scanner
 func (s *Scanner) advance() rune {
 	ch := s.peek()
 	s.pos++
+	// fmt.Println(ch, s.pos)
 	return ch
 }
 
@@ -66,6 +68,7 @@ Metodo asociado al scanner que discrimina los espacion en blanco
 */
 func (s *Scanner) skipWhitespace() {
 	for unicode.IsSpace(s.peek()) {
+		// fmt.Println( s.peek() )
 		s.advance()
 	}
 }
@@ -82,6 +85,7 @@ func (s *Scanner) NextToken() Token {
 		return Token{Type: EOF, Lexeme: ""}
 	}
 
+	// fmt.Println( ch )
 	switch {
 	case unicode.IsDigit(ch):
 		return s.scanNumber()
@@ -115,6 +119,7 @@ Metodo asociado al scanner que lee numeros y considera multidigitos
 func (s *Scanner) scanNumber() Token {
 	start := s.pos
 	for unicode.IsDigit(s.peek()) {
+		// fmt.Println(start, s.peek())
 		s.advance()
 	}
 	return Token{Type: NUMBER, Lexeme: string(s.input[start:s.pos])}
